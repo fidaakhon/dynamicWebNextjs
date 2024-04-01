@@ -18,6 +18,8 @@ export async function POST(request: NextRequest) {
             content
         })
         await newJoke.save();
+
+        return NextResponse.json({ message: "Joke saved successfully!" });
     } catch (error) {
         return NextResponse.json({ message: "Error saving joke!" })
     }
@@ -46,6 +48,8 @@ export async function GET(req: any, res: any) {
 
         console.log(query);
         return NextResponse.json(query);
+
+
     } catch (error) {
         // console.error(error);
         return NextResponse.json({
@@ -66,7 +70,7 @@ export async function PUT(req: NextRequest, res: NextResponse) {
             throw new Error('Invalid ID');
         }
         const joke = await Joke.findOneAndUpdate({ id: jokeId }, { title, content }, { new: true });
-        return NextResponse.json(joke);
+        return NextResponse.json({joke, "message": "Joke updated successfully!"});
     } catch (error) {
         return NextResponse.json({ message: "Error updating joke!" })
     }
